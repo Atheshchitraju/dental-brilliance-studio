@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { PageShell } from "@/components/PageShell";
 import { Reveal, SectionHeader } from "@/components/Section";
+import logo from "@/assets/3D.jpg";
 
 const ToothScene = lazy(() =>
   import("@/components/ToothScene").then((m) => ({ default: m.ToothScene })),
@@ -34,27 +35,27 @@ export const Route = createFileRoute("/")({
 const clients = [
   {
     name: "Jas Dental",
-    logo: "src/assets/3D.jpg",
+    logo: logo,
   },
   {
     name: "Excel Dental",
-    logo: "src/assets/3D.jpg",
+    logo: logo,
   },
   {
     name: "Girish Dental Clinic",
-    logo: "src/assets/3D.jpg",
+    logo: logo,
   },
   {
     name: "House of Teeth",
-    logo: "src/assets/3D.jpg",
+    logo: logo,
   },
   {
     name: "Makers of Smile",
-    logo: "src/assets/3D.jpg",
+    logo: logo,
   },
   {
     name: "Tooth Align Clinic",
-    logo: "src/assets/3D.jpg",
+    logo: logo,
   },
 ];
 
