@@ -59,7 +59,7 @@ const clinics = [
 
     logo: "/assets/Dr Rizwana Tarannum.png",
 
-    banner: "/assets/excel-banner.png",
+    banner: "/assets/excel-banner.webp",
 
     description:
       "Excel Dental is a modern cosmetic and restorative dental clinic delivering advanced smile transformations using precision digital workflows and premium patient care.",
@@ -264,7 +264,14 @@ function ClinicPage() {
     <div className="min-h-screen bg-white">
       {/* HERO SECTION */}
       <section className="relative h-[420px] overflow-hidden">
-        <img src={clinic.banner} alt={clinic.name} className="w-full h-full object-cover" />
+        <img
+          src={clinic.banner}
+          alt={clinic.name}
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+          className="w-full h-full object-cover"
+        />
 
         <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-6">
           <h1 className="text-5xl md:text-7xl font-bold text-white">{clinic.name}</h1>
