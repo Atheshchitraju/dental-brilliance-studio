@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { SectionHeader } from "@/components/Section";
-import d1 from "@/assets/designer-1.jpg";
-import d2 from "@/assets/designer-2.jpg";
+import d1 from "@/assets/designer.png";
+import d2 from "@/assets/desginer2.png";
 import d3 from "@/assets/designer-3.jpg";
 
 export const Route = createFileRoute("/designers")({
@@ -20,8 +20,8 @@ export const Route = createFileRoute("/designers")({
 });
 
 const designers = [
-  { name: "Dr. Elena Marchetti", role: "Lead 3D Dental Designer", exp: "12 years", img: d1 },
-  { name: "Lukas Behr", role: "Master Ceramist", exp: "18 years", img: d2 },
+  { name: "Althaf Saik", role: "Lead 3D Dental Designer",  img: d1 },
+  { name: "Abdul Kalam Shaik", role: "Lead 3D Dental Designer", img: d2 },
   { name: "Mei Tanaka", role: "CAD/CAM Specialist", exp: "9 years", img: d3 },
 ];
 

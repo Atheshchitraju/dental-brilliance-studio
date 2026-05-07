@@ -3,7 +3,12 @@ import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { PageShell } from "@/components/PageShell";
 import { Reveal, SectionHeader } from "@/components/Section";
-import logo from "@/assets/3D.jpg";
+import logo from "@/assets/logo1.png";
+import logo1 from "@/assets/excel.png";
+import logo2 from "@/assets/girish.png";
+import logo3 from "@/assets/House of teeth.jpeg";
+import logo4 from "@/assets/makers-of-smile.jpg";
+import logo5 from "@/assets/tooth-align.png";
 
 const ToothScene = lazy(() =>
   import("@/components/ToothScene").then((m) => ({ default: m.ToothScene })),
@@ -34,28 +39,34 @@ export const Route = createFileRoute("/")({
 
 const clients = [
   {
+    id: "jas-dental",
     name: "Jas Dental",
     logo: logo,
   },
   {
+    id: "excel-dental",
     name: "Excel Dental",
-    logo: logo,
+    logo: logo1,
   },
   {
+    id: "girish-dental",
     name: "Girish Dental Clinic",
-    logo: logo,
+    logo: logo2,
   },
   {
+    id: "house-of-teeth",
     name: "House of Teeth",
-    logo: logo,
+    logo: logo3,
   },
   {
+    id: "makers-of-smile",
     name: "Makers of Smile",
-    logo: logo,
+    logo: logo4,
   },
   {
+    id: "tooth-align-clinic",
     name: "Tooth Align Clinic",
-    logo: logo,
+    logo: logo5,
   },
 ];
 
@@ -180,17 +191,19 @@ function Index() {
           <div className="relative overflow-hidden">
             <div className="flex gap-8 animate-scroll whitespace-nowrap items-center">
               {[...clients, ...clients].map((c, i) => (
-                <div
+                <Link
                   key={i}
+                  to={`/clinics/${c.id}`}
                   className="flex flex-col items-center justify-center min-w-[140px] h-[100px] bg-white/70 backdrop-blur-md rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all"
                 >
                   <img
                     src={c.logo}
                     alt={c.name}
-                    className="h-10 object-contain mb-2 grayscale hover:grayscale-0 transition"
+                    className="h-15 object-contain mb-2 grayscale hover:grayscale-0 transition"
                   />
+
                   <p className="text-xs text-center text-gray-600 px-2 truncate">{c.name}</p>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

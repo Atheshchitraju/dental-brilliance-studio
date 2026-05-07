@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShadeIndexRouteImport } from './routes/shade/index'
+import { Route as ClinicsIdRouteImport } from './routes/clinics/$id'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -58,6 +59,11 @@ const ShadeIndexRoute = ShadeIndexRouteImport.update({
   path: '/shade/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClinicsIdRoute = ClinicsIdRouteImport.update({
+  id: '/clinics/$id',
+  path: '/clinics/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/equipment': typeof EquipmentRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/clinics/$id': typeof ClinicsIdRoute
   '/shade/': typeof ShadeIndexRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/equipment': typeof EquipmentRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/clinics/$id': typeof ClinicsIdRoute
   '/shade': typeof ShadeIndexRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/equipment': typeof EquipmentRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/clinics/$id': typeof ClinicsIdRoute
   '/shade/': typeof ShadeIndexRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/equipment'
     | '/portfolio'
     | '/services'
+    | '/clinics/$id'
     | '/shade/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/equipment'
     | '/portfolio'
     | '/services'
+    | '/clinics/$id'
     | '/shade'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/equipment'
     | '/portfolio'
     | '/services'
+    | '/clinics/$id'
     | '/shade/'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   EquipmentRoute: typeof EquipmentRoute
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
+  ClinicsIdRoute: typeof ClinicsIdRoute
   ShadeIndexRoute: typeof ShadeIndexRoute
 }
 
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShadeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/clinics/$id': {
+      id: '/clinics/$id'
+      path: '/clinics/$id'
+      fullPath: '/clinics/$id'
+      preLoaderRoute: typeof ClinicsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   EquipmentRoute: EquipmentRoute,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
+  ClinicsIdRoute: ClinicsIdRoute,
   ShadeIndexRoute: ShadeIndexRoute,
 }
 export const routeTree = rootRouteImport
