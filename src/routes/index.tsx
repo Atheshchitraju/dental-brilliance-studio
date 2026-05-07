@@ -48,33 +48,44 @@ const clients = [
     id: "jas-dental",
     name: "Jas Dental",
     logo: logo,
+    banner: "/assets/logo.webp",
   },
   {
     id: "excel-dental",
     name: "Excel Dental",
     logo: logo1,
+    banner: "/assets/excel-banner.webp",
   },
   {
     id: "girish-dental",
     name: "Girish Dental Clinic",
     logo: logo2,
+    banner: "/assets/girish-banner1.webp",
   },
   {
     id: "house-of-teeth",
     name: "House of Teeth",
     logo: logo3,
+    banner: "/assets/house-of-teeth-banner.webp",
   },
   {
     id: "makers-of-smile",
     name: "Makers of Smile",
     logo: logo4,
+    banner: "/assets/makers-banner.webp",
   },
   {
     id: "tooth-align-clinic",
     name: "Tooth Align Clinic",
     logo: logo5,
+    banner: "/assets/tooth-align-banner.webp",
   },
 ];
+
+const preloadImage = (src: string) => {
+  const img = new Image();
+  img.src = src;
+};
 
 const stats = [
   { v: "15+", l: "Years of Craft" },
@@ -94,7 +105,6 @@ function Index() {
         </div>
 
         <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 grid lg:grid-cols-2 gap-12 items-center">
-          
           {/* LEFT CONTENT */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -120,6 +130,7 @@ function Index() {
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/services"
+                preload="intent"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-md transition-transform duration-200 hover:scale-[1.02]"
               >
                 VIEW PRODUCTS →
@@ -127,6 +138,7 @@ function Index() {
 
               <Link
                 to="/portfolio"
+                preload="intent"
                 className="inline-flex items-center rounded-full glass px-7 py-3.5 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-white"
               >
                 View Our Work
@@ -210,6 +222,9 @@ function Index() {
                 <Link
                   key={i}
                   to={`/clinics/${c.id}`}
+                  preload="intent"
+                  onMouseEnter={() => preloadImage(c.banner)}
+                  onTouchStart={() => preloadImage(c.banner)}
                   className="flex flex-col items-center justify-center min-w-[140px] h-[100px] bg-white/80 rounded-xl shadow-sm border border-gray-200 transition-shadow duration-200 hover:shadow-md"
                 >
                   <img
@@ -217,9 +232,10 @@ function Index() {
                     alt={c.name}
                     width={120}
                     height={60}
-                    loading="lazy"
+                    loading="eager"
+                    fetchPriority="high"
                     decoding="async"
-                    className="h-14 object-contain mb-2 grayscale transition duration-200 hover:grayscale-0"
+                    className="h-14 object-contain mb-2 grayscale transition-all duration-150 hover:grayscale-0"
                   />
 
                   <p className="text-xs text-center text-gray-600 px-2 truncate">
@@ -297,6 +313,7 @@ function Index() {
 
               <Link
                 to="/contact"
+                preload="intent"
                 className="relative mt-8 inline-flex items-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-primary transition-transform duration-200 hover:scale-[1.03]"
               >
                 Start a conversation →
