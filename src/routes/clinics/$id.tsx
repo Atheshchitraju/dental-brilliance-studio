@@ -12,7 +12,7 @@ const clinics = [
 
     logo: "/assets/Basha Sir.png",
 
-    banner: "/assets/logo.jpeg",
+    banner: "/assets/logo.webp",
 
     description:
       "Jas Dental is a premium digital dentistry clinic focused on aesthetic smile design, precision restorations, and modern dental workflows. The clinic combines advanced technology with patient-centered care to deliver high-quality dental solutions.",
@@ -96,7 +96,7 @@ const clinics = [
 
     logo: "/assets/girish.png",
 
-    banner: "/assets/girish-banner1.png",
+    banner: "/assets/girish-banner1.webp",
 
     description:
       "Girish Dental Clinic specializes in advanced restorative and cosmetic dentistry with a strong focus on precision digital workflows, smile enhancement, and patient comfort. The clinic combines modern technology with highly personalized treatment planning.",
@@ -134,7 +134,7 @@ const clinics = [
 
     logo: "/assets/Haritha.png",
 
-    banner: "/assets/tooth-align-banner.png",
+    banner: "/assets/tooth-align-banner.webp",
 
     description:
       "Tooth Align Clinic is a modern orthodontic and cosmetic dental center specializing in clear aligners, smile correction, and digital orthodontic workflows. The clinic focuses on precision treatment planning and patient comfort using advanced dental technologies.",
@@ -174,9 +174,9 @@ const clinics = [
 
     name: "House of Teeth",
 
-    logo: "/assets/chandini.png",
+    logo: "/assets/chandini.webp",
 
-    banner: "/assets/house-of-teeth-banner.png",
+    banner: "/assets/house-of-teeth-banner.webp",
 
     description:
       "House of Teeth is a premium cosmetic and restorative dental clinic focused on advanced smile transformations, digital workflows, and personalized patient care. The clinic combines cutting-edge dental technology with aesthetic excellence to deliver natural and confident smiles.",
@@ -212,9 +212,9 @@ const clinics = [
 
     name: "Makers of Smile",
 
-    logo: "/assets/Roli Singh.png",
+    logo: "/assets/Roli Singh.webp",
 
-    banner: "/assets/makers-banner.png",
+    banner: "/assets/makers-banner.webp",
 
     description:
       "Makers of Smile is a contemporary dental clinic specializing in smile aesthetics, restorative dentistry, and advanced digital dental workflows. The clinic is dedicated to creating confident smiles through precision-driven treatment planning and modern dental technology.",
@@ -240,7 +240,7 @@ const clinics = [
       {
         name: "Dr. Roli Singh",
         role: "Smile Design Specialist",
-        image: "/assets/Roli Singh.png",
+        image: "/assets/Roli Singh.webp",
         experience: "9+ Years Experience",
       },
     ],
