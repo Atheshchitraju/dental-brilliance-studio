@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import logo from "@/assets/3D.jpg";
+import logo from "@/assets/3D.webp";
 
 const links = [
   { to: "/", label: "Home" },

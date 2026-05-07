@@ -3,21 +3,26 @@ import { motion } from "framer-motion";
 import { lazy, Suspense } from "react";
 import { PageShell } from "@/components/PageShell";
 import { Reveal, SectionHeader } from "@/components/Section";
-import logo from "@/assets/logo1.png";
-import logo1 from "@/assets/excel.png";
-import logo2 from "@/assets/girish.png";
-import logo3 from "@/assets/House of teeth.jpeg";
-import logo4 from "@/assets/makers-of-smile.jpg";
-import logo5 from "@/assets/tooth-align.png";
+
+import logo from "@/assets/logo1.webp";
+import logo1 from "@/assets/Excel.webp";
+import logo2 from "@/assets/girish.webp";
+import logo3 from "@/assets/House of teeth.webp";
+import logo4 from "@/assets/makers-of-smile.webp";
+import logo5 from "@/assets/tooth-align.webp";
 
 const ToothScene = lazy(() =>
-  import("@/components/ToothScene").then((m) => ({ default: m.ToothScene })),
+  import("@/components/ToothScene").then((m) => ({
+    default: m.ToothScene,
+  })),
 );
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "3D Digital Dental Designers Lab — Precision Dental Solutions" },
+      {
+        title: "3D Digital Dental Designers Lab — Precision Dental Solutions",
+      },
       {
         name: "description",
         content:
@@ -25,7 +30,8 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "3D Digital Dental Designers Lab — Precision Dental Solutions",
+        content:
+          "3D Digital Dental Designers Lab — Precision Dental Solutions",
       },
       {
         property: "og:description",
@@ -82,54 +88,46 @@ function Index() {
     <PageShell>
       {/* HERO */}
       <section className="relative overflow-hidden bg-gradient-hero">
-        <div className="absolute inset-0 -z-10 opacity-60">
-          <div className="absolute -top-20 -left-20 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute top-40 right-0 h-[28rem] w-[28rem] rounded-full bg-accent/20 blur-3xl" />
+        <div className="absolute inset-0 -z-10 opacity-50">
+          <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-primary/20 blur-lg" />
+          <div className="absolute top-40 right-0 h-[22rem] w-[22rem] rounded-full bg-accent/20 blur-lg" />
         </div>
+
         <div className="mx-auto max-w-7xl px-6 pt-10 pb-24 grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-6"
-            >
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" /> Digital Dental
-              Atelier
-            </motion.div>
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]"
-            >
-              Precision <span className="gradient-text">Dental Lab</span> Solutions
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25 }}
-              className="mt-6 text-lg text-muted-foreground max-w-xl"
-            >
-              We craft restorations the way nature intended — with sub-micron accuracy, premium
-              ceramics, and a digital workflow trusted by leading clinics worldwide.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="mt-8 flex flex-wrap gap-4"
-            >
+          
+          {/* LEFT CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55 }}
+          >
+            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-6">
+              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+              Digital Dental Atelier
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]">
+              Precision <span className="gradient-text">Dental Lab</span>{" "}
+              Solutions
+            </h1>
+
+            <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
+              We craft restorations the way nature intended — with
+              sub-micron accuracy, premium ceramics, and a digital
+              workflow trusted by leading clinics worldwide.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-glass"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-md transition-transform duration-200 hover:scale-[1.02]"
               >
                 VIEW PRODUCTS →
               </Link>
 
               <Link
                 to="/portfolio"
-                className="inline-flex items-center rounded-full glass px-7 py-3.5 text-sm font-semibold text-foreground hover:bg-white transition-all"
+                className="inline-flex items-center rounded-full glass px-7 py-3.5 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-white"
               >
                 View Our Work
               </Link>
@@ -138,49 +136,61 @@ function Index() {
                 href="https://wa.me/918217216397?text=Hi!%20I%20need%20dental%20lab%20services."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center rounded-full glass px-7 py-3.5 text-sm font-semibold text-foreground hover:bg-white transition-all"
+                className="inline-flex items-center rounded-full glass px-7 py-3.5 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-white"
               >
                 Whats App Us
               </a>
-            </motion.div>
+            </div>
 
             <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6">
               {stats.map((s, i) => (
-                <Reveal key={s.l} delay={i * 0.08}>
-                  <div className="text-3xl font-bold gradient-text">{s.v}</div>
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">
-                    {s.l}
+                <Reveal key={s.l} delay={i * 0.06}>
+                  <div>
+                    <div className="text-3xl font-bold gradient-text">
+                      {s.v}
+                    </div>
+
+                    <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">
+                      {s.l}
+                    </div>
                   </div>
                 </Reveal>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="relative h-[420px] md:h-[560px] lg:h-[640px]">
-            <div className="absolute inset-0 rounded-[2.5rem] glass shadow-glass overflow-hidden">
+          {/* RIGHT SIDE */}
+          <div className="relative h-[380px] md:h-[540px] lg:h-[620px]">
+            <div className="absolute inset-0 rounded-[2.5rem] glass overflow-hidden shadow-xl">
               <Suspense
-                fallback={<div className="h-full w-full bg-gradient-silver animate-pulse" />}
+                fallback={
+                  <div className="h-full w-full bg-gradient-silver animate-pulse" />
+                }
               >
                 <ToothScene />
               </Suspense>
             </div>
-            <div className="absolute -bottom-6 -left-6 glass rounded-2xl p-4 shadow-soft hidden md:block">
+
+            <div className="absolute -bottom-6 -left-4 glass rounded-2xl p-4 hidden md:block shadow-md">
               <div className="text-xs uppercase tracking-wider text-muted-foreground">
                 Turnaround
               </div>
+
               <div className="text-2xl font-bold">48–72h</div>
             </div>
-            <div className="absolute -top-6 -right-6 glass rounded-2xl p-4 shadow-soft hidden md:block">
+
+            <div className="absolute -top-6 -right-4 glass rounded-2xl p-4 hidden md:block shadow-md">
               <div className="text-xs uppercase tracking-wider text-muted-foreground">
                 ISO 13485
               </div>
+
               <div className="text-2xl font-bold">Certified</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CLIENT LOGOS STRIP */}
+      {/* CLIENT STRIP */}
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
@@ -188,21 +198,33 @@ function Index() {
               Trusted by Leading Clinics
             </p>
           </Reveal>
+
           <div className="relative overflow-hidden">
-            <div className="flex gap-8 animate-scroll whitespace-nowrap items-center">
+            <div
+              className="flex gap-8 whitespace-nowrap items-center animate-scroll will-change-transform"
+              style={{
+                transform: "translate3d(0,0,0)",
+              }}
+            >
               {[...clients, ...clients].map((c, i) => (
                 <Link
                   key={i}
                   to={`/clinics/${c.id}`}
-                  className="flex flex-col items-center justify-center min-w-[140px] h-[100px] bg-white/70 backdrop-blur-md rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all"
+                  className="flex flex-col items-center justify-center min-w-[140px] h-[100px] bg-white/80 rounded-xl shadow-sm border border-gray-200 transition-shadow duration-200 hover:shadow-md"
                 >
                   <img
                     src={c.logo}
                     alt={c.name}
-                    className="h-15 object-contain mb-2 grayscale hover:grayscale-0 transition"
+                    width={120}
+                    height={60}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-14 object-contain mb-2 grayscale transition duration-200 hover:grayscale-0"
                   />
 
-                  <p className="text-xs text-center text-gray-600 px-2 truncate">{c.name}</p>
+                  <p className="text-xs text-center text-gray-600 px-2 truncate">
+                    {c.name}
+                  </p>
                 </Link>
               ))}
             </div>
@@ -210,7 +232,7 @@ function Index() {
         </div>
       </section>
 
-      {/* WHY US TEASER */}
+      {/* WHY US */}
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeader
@@ -218,6 +240,7 @@ function Index() {
             title="Where craft meets digital precision"
             subtitle="A fully integrated digital workflow — from intraoral scan to final polish — operated by master ceramists and 3D dental designers."
           />
+
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
@@ -233,11 +256,17 @@ function Index() {
                 d: "Every case is touched by a senior 3D dental designer, not just a technician.",
               },
             ].map((f, i) => (
-              <Reveal key={f.t} delay={i * 0.1}>
-                <div className="glass rounded-3xl p-8 h-full shadow-soft hover:shadow-glass hover:-translate-y-1 transition-all duration-300">
-                  <div className="h-12 w-12 rounded-2xl bg-gradient-primary mb-5 shadow-glow" />
-                  <h3 className="text-xl font-semibold">{f.t}</h3>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{f.d}</p>
+              <Reveal key={f.t} delay={i * 0.08}>
+                <div className="glass rounded-3xl p-8 h-full shadow-sm transition-transform duration-200 hover:-translate-y-1">
+                  <div className="h-12 w-12 rounded-2xl bg-gradient-primary mb-5" />
+
+                  <h3 className="text-xl font-semibold">
+                    {f.t}
+                  </h3>
+
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {f.d}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -249,20 +278,26 @@ function Index() {
       <section className="py-20">
         <div className="mx-auto max-w-5xl px-6">
           <Reveal>
-            <div className="rounded-[2.5rem] bg-gradient-primary p-12 md:p-16 text-center shadow-glow relative overflow-hidden">
+            <div className="rounded-[2.5rem] bg-gradient-primary p-12 md:p-16 text-center relative overflow-hidden shadow-xl">
               <div
-                className="absolute inset-0 opacity-20"
-                style={{ background: "radial-gradient(circle at 30% 20%, white, transparent 50%)" }}
+                className="absolute inset-0 opacity-10"
+                style={{
+                  background:
+                    "radial-gradient(circle at 30% 20%, white, transparent 50%)",
+                }}
               />
+
               <h2 className="relative text-3xl md:text-5xl font-bold text-primary-foreground">
                 Partner with a lab that elevates your practice.
               </h2>
+
               <p className="relative mt-4 text-primary-foreground/80 max-w-xl mx-auto">
                 Send us your first case — discover the 3D Digital Dental Designers difference.
               </p>
+
               <Link
                 to="/contact"
-                className="relative mt-8 inline-flex items-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-primary hover:scale-105 transition-transform"
+                className="relative mt-8 inline-flex items-center rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-primary transition-transform duration-200 hover:scale-[1.03]"
               >
                 Start a conversation →
               </Link>

@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Reveal, SectionHeader } from "@/components/Section";
-import p1 from "@/assets/Monolithic Zirconia Crown.jpg";
-import p2 from "@/assets/Full Arch Veneer Restoration.jpg";
-import p3 from "@/assets/eq-cad1.jpg";
-import p4 from "@/assets/Lithium Disilicate Inlay.jpg";
-import p5 from "@/assets/Implants.jpg";
-import p6 from "@/assets/SurgicalGuideDesign1.jpg";
+import p1 from "@/assets/Monolithic Zirconia Crown.webp";
+import p2 from "@/assets/Full Arch Veneer Restoration.webp";
+import p3 from "@/assets/eq-cad1.webp";
+import p4 from "@/assets/Lithium Disilicate Inlay.webp";
+import p5 from "@/assets/Implants.webp";
+import p6 from "@/assets/SurgicalGuideDesign1.webp";
 
 export const Route = createFileRoute("/portfolio")({
   head: () => ({

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/3D.jpg";
+import logo from "@/assets/3D.webp";
 
 export function Footer() {
   return (

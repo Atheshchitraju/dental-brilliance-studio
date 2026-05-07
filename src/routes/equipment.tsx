@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { Reveal, SectionHeader } from "@/components/Section";
-import labImg from "@/assets/lab-equipment.jpg";
-import eqMilling from "@/assets/eq-milling.jpg";
-import eqScanner from "@/assets/eq-scanner.jpg";
-import eqPrinter from "@/assets/eq-printer.jpg";
-import eqFurnace from "@/assets/eq-furnace.jpg";
-import eqCad from "@/assets/eq-cad.jpg";
-import eqPorcelain from "@/assets/eq-porcelain.jpg";
+import labImg from "@/assets/lab-equipment.webp";
+import eqMilling from "@/assets/eq-milling.webp";
+import eqScanner from "@/assets/eq-scanner.webp";
+import eqPrinter from "@/assets/eq-printer.webp";
+import eqFurnace from "@/assets/eq-furnace.webp";
+import eqCad from "@/assets/eq-cad.webp";
+import eqPorcelain from "@/assets/eq-porcelain.webp";
 
 export const Route = createFileRoute("/equipment")({
   head: () => ({

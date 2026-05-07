@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { PageShell } from "@/components/PageShell";
 import { SectionHeader } from "@/components/Section";
-import d1 from "@/assets/designer.png";
-import d2 from "@/assets/desginer2.png";
-import d3 from "@/assets/designer-3.jpg";
+import d1 from "@/assets/designer.webp";
+import d2 from "@/assets/desginer2.webp";
+import d3 from "@/assets/designer-3.webp";
 
 export const Route = createFileRoute("/designers")({
   head: () => ({
