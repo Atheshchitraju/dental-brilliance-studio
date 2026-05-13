@@ -9,11 +9,13 @@ lerna-debug.log*
 
 # Dependencies
 node_modules
+**/node_modules
 
 # Build outputs
 dist
 dist-ssr
 .output
+backend/dist
 
 # Vite / tooling
 .vite/
@@ -21,10 +23,15 @@ dist-ssr
 .tanstack/**
 .nitro
 
-# Env
+# Environment files
 .env
 .env.*
 *.local
+backend/.env
+
+# Uploads
+uploads
+backend/uploads
 
 # Wrangler / Cloudflare
 .wrangler/

@@ -1,0 +1,136 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+
+export default function AdminOrders() {
+  const [orders, setOrders] = useState([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+
+    if (!token) {
+      navigate({
+        to: "/admin/login",
+      });
+
+      return;
+    }
+
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem("adminToken");
+
+      const response = await fetch("http://localhost:5000/api/orders", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 401) {
+        localStorage.removeItem("adminToken");
+
+        navigate({
+          to: "/admin/login",
+        });
+
+        return;
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+        setOrders(data.orders);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+
+    navigate({
+      to: "/admin/login",
+    });
+  };
+
+  return (
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">Order Management</h1>
+
+        <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
+          Logout
+        </button>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse min-w-[1600px]">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-3 text-left">Order ID</th>
+
+              <th className="p-3 text-left">Patient</th>
+
+              <th className="p-3 text-left">Phone</th>
+
+              <th className="p-3 text-left">Clinic</th>
+
+              <th className="p-3 text-left">Clinic Email</th>
+
+              <th className="p-3 text-left">WhatsApp</th>
+
+              <th className="p-3 text-left">Product</th>
+
+              <th className="p-3 text-left">Shade</th>
+
+              <th className="p-3 text-left">Selected Teeth</th>
+
+              <th className="p-3 text-left">Notes</th>
+
+              <th className="p-3 text-left">Status</th>
+
+              <th className="p-3 text-left">Designer</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {orders.map((order: any) => (
+              <tr key={order._id} className="border-b">
+                <td className="p-3">{order.orderId}</td>
+
+                <td className="p-3">{order.name || "-"}</td>
+
+                <td className="p-3">{order.phone || "-"}</td>
+
+                <td className="p-3">{order.clinic || "-"}</td>
+
+                <td className="p-3">{order.clinicEmail || "-"}</td>
+
+                <td className="p-3">{order.clinicWhatsapp || "-"}</td>
+
+                <td className="p-3">{order.product || "-"}</td>
+
+                <td className="p-3">{order.shade || "-"}</td>
+
+                <td className="p-3">
+                  {Array.isArray(order.selectedTeeth) ? order.selectedTeeth.join(", ") : "-"}
+                </td>
+
+                <td className="p-3 max-w-[300px]">{order.notes || "-"}</td>
+
+                <td className="p-3">{order.status || "-"}</td>
+
+                <td className="p-3">{order.designer || "-"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
