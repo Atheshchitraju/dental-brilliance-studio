@@ -16,7 +16,7 @@ const clinics = [
       "Jas Dental is a premium digital dentistry clinic focused on aesthetic smile design, precision restorations, and modern dental workflows. The clinic combines advanced technology with patient-centered care to deliver high-quality dental solutions.",
 
     location: "HSR Layout, Bengaluru",
-    phone: "+91 7569125028",
+    phone: "+91 9591111177",
     email: "jasasthetic@gmail.com",
     map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.8047997650115!2d77.64372107983766!3d12.920264054877379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14815a26548b%3A0x9c84d0d7b3d64c71!2sJas%20Dental%20HSR%20LAYOUT!5e0!3m2!1sen!2sin!4v1778756659686!5m2!1sen!2sin",
 
@@ -89,6 +89,7 @@ const clinics = [
     location: "JP Nagar 7th Phase, Bengaluru",
     phone: "+91 8792801460",
     email: "riz.zinu7@gmail.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.278711634221!2d77.58610237512148!3d12.889791487418137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae157daab46707%3A0x6f0a7dcd1dc2ef6c!2sEXCEL%20DENTAL!5e0!3m2!1sen!2sin!4v1778758717122!5m2!1sen!2sin",
 
     services: [
       "Smile Designing",
@@ -135,6 +136,7 @@ const clinics = [
     location: "Wilson Garden, Bangalore",
     phone: "+91 9845988184",
     email: "enharishkumar@gmail.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.4156531443045!2d77.59437767512239!3d12.945233487367688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae15c8eaaaaaab%3A0xef47bbdb60ed9112!2sGirish%20Dental%20Clinic!5e0!3m2!1sen!2sin!4v1778758983918!5m2!1sen!2sin",
 
     services: [
       "Digital Smile Design",
@@ -185,6 +187,7 @@ const clinics = [
     location: "HSR Layout, Bengaluru",
     phone: "+91 9398753235",
     email: "drharithatoothalign@gmail.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31113.62560606006!2d77.61199710014975!3d12.894651583372346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae151d534e9b1b%3A0xf82f6e96ff46d077!2sDr%20Haritha%20Tooth%20Align!5e0!3m2!1sen!2sin!4v1778759377794!5m2!1sen!2sin",
 
     services: [
       "Clear Aligners",
@@ -232,6 +235,7 @@ const clinics = [
     location: "Bangalore, India",
     phone: "+91 8105189978",
     email: "houseofteeth888@gmail.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.355070382187!2d77.6403935751214!3d12.884874987422588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4d08f5a1da6d364f%3A0x78fb3e2cc4b92bb4!2sHouse%20of%20Teeth%20-%20The%20Dental%20Clinic!5e0!3m2!1sen!2sin!4v1778759149577!5m2!1sen!2sin",
 
     services: [
       "Smile Makeovers",
@@ -278,6 +282,7 @@ const clinics = [
     location: "Akshayanagar, Bengaluru",
     phone: "+91 7349137242",
     email: "contact@makersofsmile.com",
+    map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.6257408990964!2d77.61830057512108!3d12.867432487438434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6b2b5da50235%3A0xc79af7b75f34a14a!2sMakers%20Of%20Smile%20Dental%20Clinic!5e0!3m2!1sen!2sin!4v1778759257500!5m2!1sen!2sin",
 
     services: [
       "Smile Designing",
