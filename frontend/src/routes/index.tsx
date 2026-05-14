@@ -168,7 +168,7 @@ function Index() {
             transition={{ duration: 0.8 }}
             className="relative flex justify-center"
           >
-            <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl border border-white/20 bg-white/10 backdrop-blur-sm  max-w-sm  w-[680px] h-[580px]">
+            <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl border border-white/20 bg-white/10 backdrop-blur-sm w-full max-w-[280px] sm:max-w-sm md:w-[680px] h-[380px] md:h-[580px]">
               <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                 <source src="/dental-hero.mp4" type="video/mp4" />
               </video>
