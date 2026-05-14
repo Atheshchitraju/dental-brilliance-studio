@@ -2,6 +2,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import API_URL from "../../config/api";
+
 
 export const Route = createFileRoute("/admin/orders")({
   component: AdminOrdersPage,
@@ -38,7 +40,7 @@ function AdminOrdersPage() {
     try {
       const token = localStorage.getItem("adminToken");
 
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch(`${API_URL}/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -72,7 +74,7 @@ function AdminOrdersPage() {
     try {
       const token = localStorage.getItem("adminToken");
 
-      const response = await fetch(`http://localhost:5000/api/orders/${id}`, {
+      const response = await fetch(`${API_URL}/api/orders/${id}`, {
         method: "PUT",
 
         headers: {

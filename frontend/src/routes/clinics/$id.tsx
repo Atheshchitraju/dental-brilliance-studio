@@ -16,7 +16,7 @@ const clinics = [
       "Jas Dental is a premium digital dentistry clinic focused on aesthetic smile design, precision restorations, and modern dental workflows. The clinic combines advanced technology with patient-centered care to deliver high-quality dental solutions.",
 
     location: "HSR Layout, Bengaluru",
-    phone: "+91 9876543210",
+    phone: "+91 7569125028",
     email: "jasasthetic@gmail.com",
 
     services: [

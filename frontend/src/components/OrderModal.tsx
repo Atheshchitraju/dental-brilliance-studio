@@ -1,46 +1,42 @@
+import API_URL from "@/config/api";
 import { useState } from "react";
 
 const clinics = [
   {
     id: "jas-dental",
     name: "JAS Dental",
-    email: "jasasthetic@gmail.com",
-    whatsapp: "919876543210",
+    email: "jasaesthetic@gmail.com",
+    whatsapp: "+918217216397",
   },
-
   {
     id: "excel-dental",
     name: "Excel Dental",
     email: "riz.zinu7@gmail.com",
-    whatsapp: "918792801460",
+    whatsapp: "+917569125028",
   },
-
   {
     id: "girish-dental",
     name: "Girish Dental Clinic",
     email: "enharishkumar@gmail.com",
-    whatsapp: "919845988184",
+    whatsapp: "+917569125028",
   },
-
   {
     id: "tooth-align-clinic",
     name: "Tooth Align Clinic",
     email: "drharithatoothalign@gmail.com",
-    whatsapp: "919398753235",
+    whatsapp: "+917569125028",
   },
-
   {
     id: "house-of-teeth",
     name: "House Of Teeth",
     email: "houseofteeth888@gmail.com",
-    whatsapp: "918105189978",
+    whatsapp: "+917569125028",
   },
-
   {
     id: "makers-of-smile",
     name: "Makers Of Smile",
     email: "contact@makersofsmile.com",
-    whatsapp: "917349137242",
+    whatsapp: "+917569125028",
   },
 ];
 
@@ -96,9 +92,7 @@ export default function OrderModal({ open, onClose }: Props) {
   const [selectedClinic, setSelectedClinic] = useState("");
 
   const [customClinic, setCustomClinic] = useState("");
-
   const [customClinicEmail, setCustomClinicEmail] = useState("");
-
   const [customClinicPhone, setCustomClinicPhone] = useState("");
 
   const [product, setProduct] = useState("");
@@ -122,7 +116,6 @@ export default function OrderModal({ open, onClose }: Props) {
   const submitOrder = async () => {
     if (!name || !phone || !product || !selectedClinic) {
       alert("Please fill all required fields");
-
       return;
     }
 
@@ -141,20 +134,16 @@ export default function OrderModal({ open, onClose }: Props) {
       const orderData = {
         name,
         phone,
-
         clinic: finalClinicName,
-
         clinicEmail: finalClinicEmail,
-
         clinicWhatsapp: finalClinicPhone,
-
         product,
         shade,
         selectedTeeth,
         notes,
       };
 
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: "POST",
 
         headers: {
@@ -187,7 +176,6 @@ export default function OrderModal({ open, onClose }: Props) {
       }
     } catch (error) {
       console.log(error);
-
       alert("Something went wrong");
     } finally {
       setLoading(false);
@@ -197,8 +185,6 @@ export default function OrderModal({ open, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex items-start sm:items-center justify-center pt-6 sm:pt-0 p-3 sm:p-6 overflow-y-auto">
       <div className="relative bg-white w-full max-w-3xl rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] max-h-[92vh] overflow-y-auto border border-gray-200">
-        {/* HEADER */}
-
         <div className="sticky top-0 bg-white z-20 border-b border-gray-200 px-4 sm:px-8 py-5 flex items-start justify-between">
           <div>
             <h2 className="text-[28px] sm:text-[34px] leading-tight font-semibold text-[#111827] tracking-tight">
@@ -215,11 +201,7 @@ export default function OrderModal({ open, onClose }: Props) {
           </button>
         </div>
 
-        {/* CONTENT */}
-
         <div className="px-4 sm:px-8 py-6 space-y-8">
-          {/* CUSTOMER INFO */}
-
           <div>
             <h3 className="text-[24px] font-semibold text-[#111827] mb-5">Customer Information</h3>
 
@@ -258,8 +240,6 @@ export default function OrderModal({ open, onClose }: Props) {
               </div>
             </div>
           </div>
-
-          {/* CLINIC */}
 
           <div>
             <h3 className="text-[24px] font-semibold text-[#111827] mb-5">Select Clinic</h3>
@@ -309,8 +289,6 @@ export default function OrderModal({ open, onClose }: Props) {
             )}
           </div>
 
-          {/* PRODUCT */}
-
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Product Selection</h3>
 
@@ -328,8 +306,6 @@ export default function OrderModal({ open, onClose }: Props) {
               ))}
             </select>
           </div>
-
-          {/* SHADE */}
 
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Shade Selection</h3>
@@ -349,8 +325,6 @@ export default function OrderModal({ open, onClose }: Props) {
             </select>
           </div>
 
-          {/* TEETH */}
-
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Tooth Numbers (FDI)</h3>
 
@@ -359,17 +333,15 @@ export default function OrderModal({ open, onClose }: Props) {
                 <button
                   key={tooth}
                   onClick={() => toggleTooth(tooth)}
-                  className={`h-11 border rounded-md
-
-                  ${selectedTeeth.includes(tooth) ? "bg-[#0f172a] text-white" : "bg-white"}`}
+                  className={`h-11 border rounded-md ${
+                    selectedTeeth.includes(tooth) ? "bg-[#0f172a] text-white" : "bg-white"
+                  }`}
                 >
                   {tooth}
                 </button>
               ))}
             </div>
           </div>
-
-          {/* NOTES */}
 
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Additional Notes</h3>
@@ -383,15 +355,11 @@ export default function OrderModal({ open, onClose }: Props) {
             />
           </div>
 
-          {/* FILES */}
-
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Upload Files</h3>
 
             <input type="file" multiple onChange={(e) => setFiles(e.target.files)} />
           </div>
-
-          {/* BUTTONS */}
 
           <div className="grid sm:grid-cols-2 gap-4 pt-2">
             <button onClick={onClose} className="h-[52px] rounded-lg border border-gray-300">

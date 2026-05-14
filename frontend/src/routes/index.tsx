@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { lazy, Suspense } from "react";
+
 import { PageShell } from "@/components/PageShell";
 import { Reveal, SectionHeader } from "@/components/Section";
 
@@ -10,12 +10,6 @@ import logo2 from "@/assets/girish.webp";
 import logo3 from "@/assets/House of teeth.webp";
 import logo4 from "@/assets/makers-of-smile.webp";
 import logo5 from "@/assets/tooth-align.webp";
-
-const ToothScene = lazy(() =>
-  import("@/components/ToothScene").then((m) => ({
-    default: m.ToothScene,
-  })),
-);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,7 +55,6 @@ const clients = [
     name: "Girish Dental Clinic",
     logo: logo2,
     banner: "/assets/girish-banner1.webp",
-
   },
   {
     id: "house-of-teeth",
@@ -123,7 +116,7 @@ function Index() {
 
             <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
               We craft restorations the way nature intended — with sub-micron accuracy, premium
-              ceramics, and a digitalworkflow trusted by leading clinics worldwide.
+              ceramics, and a digital workflow trusted by leading clinics worldwide.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -168,32 +161,35 @@ function Index() {
             </div>
           </motion.div>
 
-          {/* RIGHT SIDE */}
-          <div className="relative h-[380px] md:h-[540px] lg:h-[620px]">
-            <div className="absolute inset-0 rounded-[2.5rem] glass overflow-hidden shadow-xl">
-              <Suspense
-                fallback={<div className="h-full w-full bg-gradient-silver animate-pulse" />}
-              >
-                <ToothScene />
-              </Suspense>
+          {/* RIGHT SIDE VIDEO */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative flex justify-center"
+          >
+            <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl border border-white/20 bg-white/10 backdrop-blur-sm  max-w-sm  w-[680px] h-[580px]">
+              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+                <source src="/dental-hero.mp4" type="video/mp4" />
+              </video>
             </div>
 
-            <div className="absolute -bottom-6 -left-4 glass rounded-2xl p-4 hidden md:block shadow-md">
+            {/* Bottom Card */}
+            {/* <div className="absolute -bottom-6 -left-4 glass rounded-2xl p-4 hidden md:block shadow-md">
               <div className="text-xs uppercase tracking-wider text-muted-foreground">
-                Turnaround
+                Precision Care
               </div>
 
-              <div className="text-2xl font-bold">48–72h</div>
-            </div>
+              <div className="text-2xl font-bold">Digital Craft</div>
+            </div> */}
 
-            <div className="absolute -top-6 -right-4 glass rounded-2xl p-4 hidden md:block shadow-md">
-              <div className="text-xs uppercase tracking-wider text-muted-foreground">
-                ISO 13485
-              </div>
+            {/* Top Card */}
+            {/* <div className="absolute -top-6 -right-4 glass rounded-2xl p-4 hidden md:block shadow-md">
+              <div className="text-xs uppercase tracking-wider text-muted-foreground">Premium</div>
 
-              <div className="text-2xl font-bold">Certified</div>
-            </div>
-          </div>
+              <div className="text-2xl font-bold">Dental Lab</div>
+            </div> */}
+          </motion.div>
         </div>
       </section>
 

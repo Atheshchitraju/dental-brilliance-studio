@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import API_URL from "@/config/api";
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
@@ -24,7 +25,7 @@ export default function AdminOrders() {
     try {
       const token = localStorage.getItem("adminToken");
 
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch(`${API_URL}/api/orders`), {
         headers: {
           Authorization: `Bearer ${token}`,
         },

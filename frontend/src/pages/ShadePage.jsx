@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import API_URL from "../../config/api";
+
 
 const shadeGroups = {
   A: {
@@ -82,7 +84,7 @@ const ShadePage = () => {
       formData.append("image", image);
 
       const res = await axios.post(
-        "http://localhost:5000/api/shade",
+        `${API_URL}/api/shade`,
         formData
       );
 
