@@ -194,23 +194,35 @@ function Index() {
       </section>
 
       {/* CLIENT STRIP */}
-      <section className="py-16">
+      <section className="py-16 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6">
           <Reveal>
-            <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground mb-8">
+            <p className="text-center text-xs uppercase tracking-[0.25em] text-muted-foreground mb-12">
               Trusted by Leading Clinics
             </p>
           </Reveal>
 
-          <div className="relative overflow-hidden">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-              {clients.map((c, i) => (
+          <div className="relative overflow-hidden py-6">
+            <motion.div
+              className="flex gap-6 w-max items-start"
+              animate={{
+                x: ["0%", "-50%"],
+              }}
+              transition={{
+                duration: 40,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              {[...clients, ...clients].map((c, i) => (
                 <Link
                   key={i}
                   to={`/clinics/${c.id}`}
                   preload="intent"
                   onMouseEnter={() => preloadImage(c.banner)}
-                  className="flex flex-col items-center justify-center h-[110px] bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className={`min-w-[180px] flex flex-col items-center justify-center h-[110px] bg-white rounded-2xl shadow-sm border border-gray-100 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg px-4 ${
+                    i % 3 === 0 ? "mt-0" : i % 3 === 1 ? "mt-6" : "mt-12"
+                  }`}
                 >
                   <img
                     src={c.logo}
@@ -221,7 +233,7 @@ function Index() {
                   <p className="text-xs text-center text-gray-600 px-2">{c.name}</p>
                 </Link>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
