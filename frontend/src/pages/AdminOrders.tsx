@@ -21,11 +21,13 @@ export default function AdminOrders() {
     fetchOrders();
   }, []);
 
+  // FETCH ORDERS
+
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem("adminToken");
 
-      const response = await fetch(`${API_URL}/api/orders`), {
+      const response = await fetch(`${API_URL}/api/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,6 +53,52 @@ export default function AdminOrders() {
     }
   };
 
+  // UPDATE STATUS
+
+  const updateStatus = async (orderId: string, status: string) => {
+    try {
+      console.log("================================");
+      console.log("STATUS BUTTON CLICKED");
+      console.log("ORDER ID:", orderId);
+      console.log("NEW STATUS:", status);
+      console.log("================================");
+
+      const token = localStorage.getItem("adminToken");
+
+      const response = await fetch(
+        `${API_URL}/api/orders/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify({
+            status,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      console.log("STATUS RESPONSE:", data);
+
+      if (data.success) {
+        alert("Status Updated Successfully");
+
+        fetchOrders();
+      } else {
+        alert("Failed To Update Status");
+      }
+    } catch (error) {
+      console.log("STATUS UPDATE ERROR:");
+      console.log(error);
+    }
+  };
+
+  // LOGOUT
+
   const handleLogout = () => {
     localStorage.removeItem("adminToken");
 
@@ -70,7 +118,7 @@ export default function AdminOrders() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse min-w-[1600px]">
+        <table className="w-full border-collapse min-w-[1800px]">
           <thead>
             <tr className="bg-gray-100">
               <th className="p-3 text-left">Order ID</th>
@@ -94,6 +142,8 @@ export default function AdminOrders() {
               <th className="p-3 text-left">Notes</th>
 
               <th className="p-3 text-left">Status</th>
+
+              <th className="p-3 text-left">Update Status</th>
 
               <th className="p-3 text-left">Designer</th>
             </tr>
@@ -124,7 +174,25 @@ export default function AdminOrders() {
 
                 <td className="p-3 max-w-[300px]">{order.notes || "-"}</td>
 
-                <td className="p-3">{order.status || "-"}</td>
+                <td className="p-3">{order.status || "Pending"}</td>
+
+                <td className="p-3">
+                  <select
+                    value={order.status || "Pending"}
+                    onChange={(e) => updateStatus(order.orderId, e.target.value)}
+                    className="border p-2 rounded"
+                  >
+                    <option value="Pending">Pending</option>
+
+                    <option value="Accepted">Accepted</option>
+
+                    <option value="Printing">Printing</option>
+
+                    <option value="Completed">Completed</option>
+
+                    <option value="Delivered">Delivered</option>
+                  </select>
+                </td>
 
                 <td className="p-3">{order.designer || "-"}</td>
               </tr>

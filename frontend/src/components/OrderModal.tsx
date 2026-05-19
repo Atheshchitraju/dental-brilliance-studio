@@ -1,6 +1,12 @@
 import API_URL from "@/config/api";
 import { useState } from "react";
 
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 const clinics = [
   {
     id: "jas-dental",
@@ -105,12 +111,34 @@ export default function OrderModal({ open, onClose }: Props) {
 
   const [loading, setLoading] = useState(false);
 
+  // PAYMENT STATES
+
+  const [paymentMode, setPaymentMode] = useState("postpaid");
+
+  const [amount, setAmount] = useState(1000);
+
   if (!open) return null;
 
   const toggleTooth = (tooth: number) => {
     setSelectedTeeth((prev) =>
       prev.includes(tooth) ? prev.filter((t) => t !== tooth) : [...prev, tooth],
     );
+  };
+
+  const resetForm = () => {
+    setName("");
+    setPhone("");
+    setSelectedClinic("");
+    setCustomClinic("");
+    setCustomClinicEmail("");
+    setCustomClinicPhone("");
+    setProduct("");
+    setShade("");
+    setNotes("");
+    setSelectedTeeth([]);
+    setFiles(null);
+
+    onClose();
   };
 
   const submitOrder = async () => {
@@ -141,6 +169,14 @@ export default function OrderModal({ open, onClose }: Props) {
         shade,
         selectedTeeth,
         notes,
+
+        // PAYMENT DATA
+
+        amount,
+
+        paymentMode,
+
+        paymentStatus: "pending",
       };
 
       const response = await fetch(`${API_URL}/api/orders`, {
@@ -156,26 +192,158 @@ export default function OrderModal({ open, onClose }: Props) {
       const data = await response.json();
 
       if (data.success) {
-        alert("Order Submitted Successfully");
+        // PAY LATER FLOW
 
-        setName("");
-        setPhone("");
-        setSelectedClinic("");
-        setCustomClinic("");
-        setCustomClinicEmail("");
-        setCustomClinicPhone("");
-        setProduct("");
-        setShade("");
-        setNotes("");
-        setSelectedTeeth([]);
-        setFiles(null);
+        if (paymentMode === "postpaid") {
+          alert("Order Submitted Successfully");
 
-        onClose();
+          resetForm();
+
+          return;
+        }
+
+        // PAY NOW FLOW
+
+        const razorpayResponse = await fetch(`${API_URL}/api/payment/create-order`, {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            amount,
+            orderId: data.order.orderId,
+          }),
+        });
+
+        const razorpayData = await razorpayResponse.json();
+
+        const options = {
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+
+          amount: razorpayData.razorpayOrder.amount,
+
+          currency: "INR",
+
+          name: "3D Digital Dental Lab",
+
+          description: "Dental Order Payment",
+
+          image: "/assets/logo.webp",
+
+          order_id: razorpayData.razorpayOrder.id,
+
+          config: {
+            display: {
+              blocks: {
+                upi: {
+                  name: "UPI",
+
+                  instruments: [
+                    {
+                      method: "upi",
+                    },
+                  ],
+                },
+
+                cards: {
+                  name: "Cards",
+
+                  instruments: [
+                    {
+                      method: "card",
+                    },
+                  ],
+                },
+
+                netbanking: {
+                  name: "Netbanking",
+
+                  instruments: [
+                    {
+                      method: "netbanking",
+                    },
+                  ],
+                },
+
+                wallet: {
+                  name: "Wallet",
+
+                  instruments: [
+                    {
+                      method: "wallet",
+                    },
+                  ],
+                },
+              },
+
+              sequence: ["block.upi", "block.cards", "block.netbanking", "block.wallet"],
+
+              preferences: {
+                show_default_blocks: true,
+              },
+            },
+          },
+
+          prefill: {
+            name: name,
+            contact: phone,
+            email: finalClinicEmail || "",
+          },
+
+          theme: {
+            color: "#0f172a",
+          },
+
+          handler: async function (response: any) {
+            const verifyResponse = await fetch(`${API_URL}/api/payment/verify`, {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+              },
+
+              body: JSON.stringify({
+                orderId: data.order.orderId,
+
+                razorpay_order_id: response.razorpay_order_id,
+
+                razorpay_payment_id: response.razorpay_payment_id,
+
+                razorpay_signature: response.razorpay_signature,
+
+                paymentMethod: "Online",
+              }),
+            });
+
+            const verifyData = await verifyResponse.json();
+
+            if (verifyData.success) {
+              alert("Payment Successful");
+
+              resetForm();
+            } else {
+              alert("Payment Verification Failed");
+            }
+          },
+
+          modal: {
+            ondismiss: function () {
+              console.log("Payment popup closed");
+            },
+          },
+        };
+
+        const rzp = new window.Razorpay(options);
+
+        rzp.open();
       } else {
         alert(data.message || "Failed to submit order");
       }
     } catch (error) {
       console.log(error);
+
       alert("Something went wrong");
     } finally {
       setLoading(false);
@@ -202,6 +370,8 @@ export default function OrderModal({ open, onClose }: Props) {
         </div>
 
         <div className="px-4 sm:px-8 py-6 space-y-8">
+          {/* CUSTOMER */}
+
           <div>
             <h3 className="text-[24px] font-semibold text-[#111827] mb-5">Customer Information</h3>
 
@@ -240,6 +410,8 @@ export default function OrderModal({ open, onClose }: Props) {
               </div>
             </div>
           </div>
+
+          {/* CLINIC */}
 
           <div>
             <h3 className="text-[24px] font-semibold text-[#111827] mb-5">Select Clinic</h3>
@@ -289,6 +461,8 @@ export default function OrderModal({ open, onClose }: Props) {
             )}
           </div>
 
+          {/* PRODUCT */}
+
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Product Selection</h3>
 
@@ -306,6 +480,8 @@ export default function OrderModal({ open, onClose }: Props) {
               ))}
             </select>
           </div>
+
+          {/* SHADE */}
 
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Shade Selection</h3>
@@ -325,23 +501,63 @@ export default function OrderModal({ open, onClose }: Props) {
             </select>
           </div>
 
-          <div>
-            <h3 className="text-[24px] font-semibold mb-5">Tooth Numbers (FDI)</h3>
+          {/* FDI LAYOUT */}
 
-            <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
-              {[...upperTeeth, ...lowerTeeth].map((tooth) => (
+          <div>
+            <h3 className="text-[24px] font-semibold mb-2">Tooth Numbers (FDI)</h3>
+
+            <p className="text-gray-500 mb-6 text-sm">Click on teeth to select/deselect</p>
+
+            <div className="flex justify-between text-sm text-gray-400 mb-4 px-1">
+              <span>RIGHT</span>
+              <span>UPPER</span>
+              <span>LEFT</span>
+            </div>
+
+            <div className="grid grid-cols-8 md:grid-cols-16 gap-2 mb-6">
+              {upperTeeth.map((tooth) => (
                 <button
                   key={tooth}
+                  type="button"
                   onClick={() => toggleTooth(tooth)}
-                  className={`h-11 border rounded-md ${
-                    selectedTeeth.includes(tooth) ? "bg-[#0f172a] text-white" : "bg-white"
+                  className={`h-12 border rounded-md transition-all duration-200 ${
+                    selectedTeeth.includes(tooth)
+                      ? "bg-[#0f172a] text-white border-[#0f172a]"
+                      : "bg-[#f9fafb] hover:bg-gray-100 border-gray-300 text-gray-700"
                   }`}
                 >
                   {tooth}
                 </button>
               ))}
             </div>
+
+            <div className="border-t border-gray-300 my-5"></div>
+
+            <div className="grid grid-cols-8 md:grid-cols-16 gap-2 mb-5">
+              {lowerTeeth.map((tooth) => (
+                <button
+                  key={tooth}
+                  type="button"
+                  onClick={() => toggleTooth(tooth)}
+                  className={`h-12 border rounded-md transition-all duration-200 ${
+                    selectedTeeth.includes(tooth)
+                      ? "bg-[#0f172a] text-white border-[#0f172a]"
+                      : "bg-[#f9fafb] hover:bg-gray-100 border-gray-300 text-gray-700"
+                  }`}
+                >
+                  {tooth}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex justify-between text-sm text-gray-400 px-1">
+              <span>RIGHT</span>
+              <span>LOWER</span>
+              <span>LEFT</span>
+            </div>
           </div>
+
+          {/* NOTES */}
 
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Additional Notes</h3>
@@ -355,11 +571,54 @@ export default function OrderModal({ open, onClose }: Props) {
             />
           </div>
 
+          {/* FILES */}
+
           <div>
             <h3 className="text-[24px] font-semibold mb-5">Upload Files</h3>
 
             <input type="file" multiple onChange={(e) => setFiles(e.target.files)} />
           </div>
+
+          {/* PAYMENT */}
+
+          <div>
+            <h3 className="text-[24px] font-semibold mb-5">Payment Method</h3>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <button
+                type="button"
+                onClick={() => setPaymentMode("prepaid")}
+                className={`h-[52px] rounded-lg border font-medium ${
+                  paymentMode === "prepaid" ? "bg-[#0f172a] text-white" : "bg-white"
+                }`}
+              >
+                Pay Now
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setPaymentMode("postpaid")}
+                className={`h-[52px] rounded-lg border font-medium ${
+                  paymentMode === "postpaid" ? "bg-[#0f172a] text-white" : "bg-white"
+                }`}
+              >
+                Pay Later
+              </button>
+            </div>
+
+            <div className="mt-5">
+              <label className="block mb-2 text-[15px] font-medium text-gray-700">Amount</label>
+
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+                className="w-full h-[52px] border border-gray-300 rounded-lg px-4"
+              />
+            </div>
+          </div>
+
+          {/* BUTTONS */}
 
           <div className="grid sm:grid-cols-2 gap-4 pt-2">
             <button onClick={onClose} className="h-[52px] rounded-lg border border-gray-300">
@@ -371,7 +630,11 @@ export default function OrderModal({ open, onClose }: Props) {
               disabled={loading}
               className="h-[52px] rounded-lg bg-[#0f172a] text-white"
             >
-              {loading ? "Submitting..." : "Submit Order"}
+              {loading
+                ? "Processing..."
+                : paymentMode === "prepaid"
+                  ? `Pay ₹${amount}`
+                  : "Submit Order"}
             </button>
           </div>
         </div>

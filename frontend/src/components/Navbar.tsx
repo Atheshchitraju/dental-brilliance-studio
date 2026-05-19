@@ -58,7 +58,7 @@ export function Navbar() {
 
             <div className="leading-tight min-w-0">
               <div className="font-display text-[13px] sm:text-base font-bold tracking-tight text-black md:text-foreground leading-tight truncate">
-                3D Digital Dental
+                 Digital Dental
               </div>
 
               <div className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-black/70 md:text-muted-foreground truncate">
