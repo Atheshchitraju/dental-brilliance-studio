@@ -51,7 +51,7 @@ const clinics = [
 
         clinicName: "JAS DENTAL",
 
-        address: "HSR Layout, Bengaluru",
+        address: "Jakksandra,BTM Layout,HSR Layout, Bengaluru",
 
         website: "",
       },

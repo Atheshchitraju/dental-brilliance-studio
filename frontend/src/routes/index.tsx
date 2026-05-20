@@ -189,11 +189,11 @@ function Index() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-8">
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-primary font-semibold">
-                Trusted Dental Network
+                Most Trusted
               </p>
 
               <h2 className="mt-3 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-                Partner Clinics
+                Elite Dental Clinics
               </h2>
             </div>
 
@@ -757,7 +757,7 @@ function Index() {
                     delay: 0.3,
                   }}
                   viewport={{ once: true }}
-                  className="absolute top-[64%] left-[30%]"
+                  className="absolute top-[70%] left-[33%]"
                 >
                   {/* PING */}
                   <div className="absolute inset-0 h-8 w-8 rounded-full bg-blue-400 animate-ping opacity-40" />
