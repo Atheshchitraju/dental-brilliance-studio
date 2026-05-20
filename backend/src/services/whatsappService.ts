@@ -1,18 +1,20 @@
 import twilio from "twilio";
 
-console.log("TWILIO SID:");
-console.log(process.env.TWILIO_ACCOUNT_SID);
+let client: any = null;
 
-console.log("TWILIO TOKEN:");
-console.log(process.env.TWILIO_AUTH_TOKEN);
-
-console.log("TWILIO NUMBER:");
-console.log(process.env.TWILIO_WHATSAPP_NUMBER);
-
-const client = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+try {
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+    client = twilio(
+      process.env.TWILIO_ACCOUNT_SID,
+      process.env.TWILIO_AUTH_TOKEN
+    );
+    console.log("✓ Twilio client initialized");
+  } else {
+    console.warn("⚠ Twilio credentials missing - WhatsApp notifications disabled");
+  }
+} catch (err: any) {
+  console.warn("⚠ Twilio initialization failed:", err.message);
+}
 
 export const sendWhatsAppMessage = async (
   to: string,
@@ -48,25 +50,10 @@ export const sendWhatsAppMessage = async (
       body,
     });
 
-    console.log("WhatsApp Sent Successfully");
-    console.log(message.sid);
-
+    console.log("[WhatsApp] Message sent successfully");
     return message;
-
   } catch (error: any) {
-
-    console.log("TWILIO ERROR:");
-
-    console.log(error.message);
-
-    if (error.code) {
-      console.log("Error Code:", error.code);
-    }
-
-    if (error.moreInfo) {
-      console.log(error.moreInfo);
-    }
-
-    throw error;
+    console.warn("[WhatsApp] Failed (non-critical):", error.message);
+    return null;
   }
 };

@@ -16,6 +16,10 @@ export const createOrder = async (req: Request, res: Response) => {
       shade,
       selectedTeeth,
       notes,
+
+      amount,
+      paymentMode,
+      paymentStatus,
     } = req.body;
 
     const orderId = `ORD-${Date.now()}`;
@@ -30,14 +34,21 @@ export const createOrder = async (req: Request, res: Response) => {
       shade,
       selectedTeeth,
       notes,
+
+      amount,
+      paymentMode,
+      paymentStatus,
+
       orderId,
     });
 
     // SEND ORDER RECEIVED MESSAGE
 
     try {
+      // CUSTOMER WHATSAPP
+
       if (clinicWhatsapp) {
-        console.log("Sending initial order WhatsApp...");
+        console.log("Sending customer WhatsApp...");
 
         await sendWhatsAppMessage(
           clinicWhatsapp,
@@ -63,10 +74,53 @@ ${shade || "Not Selected"}
 
 We will notify you once production begins.`,
         );
-      }
-    } catch (whatsappError) {
-      console.log("Initial WhatsApp failed:");
 
+        console.log("CUSTOMER WHATSAPP SENT SUCCESSFULLY");
+      }
+
+      // ADMIN WHATSAPP NOTIFICATION
+
+      console.log("SENDING ADMIN WHATSAPP NOTIFICATION...");
+
+      await sendWhatsAppMessage(
+        "8217216397",
+
+        `🚨 NEW ORDER RECEIVED
+
+━━━━━━━━━━━━━━━
+
+📌 Order ID:
+${orderId}
+
+👤 Patient:
+${name}
+
+🏥 Clinic:
+${clinic}
+
+📱 Phone:
+${phone}
+
+🦷 Product:
+${product}
+
+🎨 Shade:
+${shade || "Not Selected"}
+
+🦷 Teeth:
+${selectedTeeth?.length ? selectedTeeth.join(", ") : "Not Provided"}
+
+📝 Notes:
+${notes || "No Notes"}
+
+━━━━━━━━━━━━━━━
+
+Please check admin dashboard.`,
+      );
+
+      console.log("ADMIN WHATSAPP SENT SUCCESSFULLY");
+    } catch (whatsappError) {
+      console.log("WHATSAPP ERROR:");
       console.log(whatsappError);
     }
 
@@ -77,7 +131,6 @@ We will notify you once production begins.`,
     });
   } catch (error: any) {
     console.log("ORDER ERROR:");
-
     console.log(error);
 
     res.status(500).json({
@@ -101,7 +154,6 @@ export const getOrders = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log("GET ORDERS ERROR:");
-
     console.log(error);
 
     res.status(500).json({
@@ -134,7 +186,6 @@ export const getOrderById = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.log("GET ORDER ERROR:");
-
     console.log(error);
 
     res.status(500).json({
@@ -148,6 +199,12 @@ export const getOrderById = async (req: Request, res: Response) => {
 
 export const updateOrderStatus = async (req: Request, res: Response) => {
   try {
+    console.log("=================================");
+    console.log("STATUS API HIT");
+    console.log("REQ PARAMS:", req.params);
+    console.log("REQ BODY:", req.body);
+    console.log("=================================");
+
     const { id } = req.params;
 
     const updateData: any = {
@@ -168,16 +225,21 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
       updateData,
 
       {
-        new: true,
+        returnDocument: "after",
       },
     );
 
     if (!updatedOrder) {
+      console.log("ORDER NOT FOUND");
+
       return res.status(404).json({
         success: false,
         message: "Order not found",
       });
     }
+
+    console.log("ORDER UPDATED SUCCESSFULLY");
+    console.log("NEW STATUS:", req.body.status);
 
     // WHATSAPP STATUS AUTOMATION
 
@@ -264,20 +326,22 @@ Thank you for choosing 3D Digital Dental Designers Lab.`;
       // SEND WHATSAPP MESSAGE
 
       if (message && updatedOrder.clinicWhatsapp) {
+        console.log("=================================");
         console.log("Status Changed:", req.body.status);
-
         console.log("WhatsApp Number:", updatedOrder.clinicWhatsapp);
-
         console.log("Sending Message:");
-
         console.log(message);
+        console.log("=================================");
 
         await sendWhatsAppMessage(updatedOrder.clinicWhatsapp, message);
+
+        console.log("WHATSAPP SENT SUCCESSFULLY");
+      } else {
+        console.log("NO MESSAGE OR WHATSAPP NUMBER FOUND");
       }
     } catch (whatsappError) {
-      console.log("WhatsApp status update failed:");
-
-      console.log(whatsappError);
+      console.log("WHATSAPP STATUS UPDATE FAILED:");
+      console.error(whatsappError);
     }
 
     res.status(200).json({
@@ -286,12 +350,12 @@ Thank you for choosing 3D Digital Dental Designers Lab.`;
     });
   } catch (error: any) {
     console.log("UPDATE ORDER ERROR:");
-
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
       message: error.message,
+      error: error,
     });
   }
 };

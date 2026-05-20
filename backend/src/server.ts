@@ -10,6 +10,7 @@ import connectDB from "./config/db";
 import caseRoutes from "./routes/caseRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import authRoutes from "./routes/authRoutes";
+import paymentRoutes from "./routes/paymentRoutes";
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/cases", caseRoutes);
 app.use("/api/orders", orderRoutes);
 
 app.use("/api/auth", authRoutes);
+app.use("/api/payment", paymentRoutes);
 
 const PORT = process.env.PORT || 5000;
 
