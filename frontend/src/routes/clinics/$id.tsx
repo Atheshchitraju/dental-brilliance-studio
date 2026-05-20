@@ -42,7 +42,7 @@ const clinics = [
         name: "Dr. Basha",
         role: "General & Family Dental Specialist",
         image: "/assets/doctors/Basha Sir.webp",
-        experience: "9+ Years Experience",
+        experience: "25+ Years Experience",
 
         phone: "",
         email: "",
@@ -60,7 +60,7 @@ const clinics = [
         name: "Dr Dikshya Bose",
         role: "General and Family Dentist",
         image: "/assets/doctors/Dikshya Bose.webp",
-        experience: "General Dental Specialist",
+        experience: "5+ Years Experience",
 
         phone: "",
         email: "",
